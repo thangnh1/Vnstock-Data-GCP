@@ -163,6 +163,10 @@ Setup pip3 : `sudo apt upgrade & sudo apt-get install python-pip3`
 
 Install libs : `pip3 install -r requirements.txt`
 
+*If the library installation has a version error, open the file `requirement.txt` and delete the version number of the library*
+
+*If the installation fails with the `vnstock` library, open the file `requirement.txt` and remove the line vnstock, then upload the file `update_data_stock.py` to use instead of the file `update_data.py`*
+
 Create script : `touch auto_run.sh & nano auto_run.sh`
 add the following line to the opened file `python3 update_data.py`. Exit & save with `Ctrl + X` -> `y` -> `Enter`
 
