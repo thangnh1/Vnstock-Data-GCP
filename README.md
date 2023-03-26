@@ -83,7 +83,7 @@ Choose `JSON Type` and Create, a JSON file containing your credentials will be d
 </p>
 
 Back to Editor, open `push_data.py`, edit variable value, then run command `python push_data.py` <br />
-Check GCS and Bigquery in Google Console.
+Check result in GCS and Bigquery in Google Console.
 
 Step 5 : Create trigger with Cloud Function
 
