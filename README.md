@@ -2,12 +2,12 @@
 
 ## Introduction
 
-Bài toán: Get data on Vietnam's stock market to base on data to make decisions in buying and selling stocks.
+**Bài toán** : Tôi muốn có dữ liệu về thị trường chứng khoán Việt Nam để có thể dựa vào số liệu đưa ra quyết định trong việc mua bán các mã cổ phiếu
 
-Yêu cầu:
+**Yêu cầu**: 
 
-Snapshot of all stock data from 01/02/2010 to the current time and save in Google Cloud Storage and write to Bigquery.
-Automating the daily data pipeline will be updated every 4pm and saved to GCS & Imported into Bigquery.
+1. Snapshot toàn bộ dữ liệu chứng khoán trong lịch sử tới thời điểm hiện tại và lưu vào trong GCS và ghi vào Bigquery.
+2. Dữ liệu daily sẽ được cập nhật vào mỗi 16h hằng ngày. Pipeline là lưu vào GCS & Import vào Bigquery. Tự động hoá pipeline.
 
 ## How to use
 
