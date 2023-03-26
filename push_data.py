@@ -1,19 +1,18 @@
 from google.cloud import storage, bigquery
 
-# storage_client = storage.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
-# storage_client.create_bucket('vnstock-data')
-# bucket = storage_client.get_bucket('vnstock-data')
-# bucket.blob('data.csv').upload_from_filename('data.csv')
-# print('Create GSC done!')
+storage_client = storage.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
+storage_client.create_bucket('vnstock-data')
+bucket = storage_client.get_bucket('vnstock-data')
+bucket.blob('data.csv').upload_from_filename('data.csv')
+print('Create GSC done!')
 
 client = bigquery.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
 dataset_name = 'vnstock'
-# table_name = 'vnstock_data'
-table_name = 'test'
+table_name = 'vnstock_data'
 
 dataset_ref = client.dataset(dataset_name)
 dataset = bigquery.Dataset(client.dataset(dataset_name))
-# dataset = client.create_dataset(dataset)
+dataset = client.create_dataset(dataset)
 
 # Define BigQuery schema
 job_config = bigquery.LoadJobConfig()
