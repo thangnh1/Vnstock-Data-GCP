@@ -1,17 +1,19 @@
 from google.cloud import storage, bigquery
 
-storage_client = storage.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
-storage_client.create_bucket('vnstock-data')
-bucket = storage_client.get_bucket('vnstock-data')
+PATH_KEY = 'vnstock-381809-22dc568a0a39.json'
+BUCKET_NAME = 'vnstock-data'
+DATASET_NAME = 'vnstock'
+TABLE_NAME = 'vnstock_data'
+
+storage_client = storage.Client.from_service_account_json(PATH_KEY)
+storage_client.create_bucket(BUCKET_NAME)
+bucket = storage_client.get_bucket(BUCKET_NAME)
 bucket.blob('data.csv').upload_from_filename('data.csv')
 print('Create GSC done!')
 
-client = bigquery.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
-dataset_name = 'vnstock'
-table_name = 'vnstock_data'
-
-dataset_ref = client.dataset(dataset_name)
-dataset = bigquery.Dataset(client.dataset(dataset_name))
+client = bigquery.Client.from_service_account_json(PATH_KEY)
+dataset_ref = client.dataset(DATASET_NAME)
+dataset = bigquery.Dataset(client.dataset(DATASET_NAME))
 dataset = client.create_dataset(dataset)
 
 # Define BigQuery schema
@@ -33,11 +35,11 @@ uri = 'gs://vnstock-data/data.csv'
 
 load_job = client.load_table_from_uri(
                 uri,
-                dataset_ref.table(table_name),
+                dataset_ref.table(TABLE_NAME),
                 job_config=job_config)
 
 load_job.result()  # wait for table load to complete.
 print('Job finished.')
 
-destination_table = client.get_table(dataset_ref.table(table_name))
+destination_table = client.get_table(dataset_ref.table(TABLE_NAME))
 print('Loaded {} rows.'.format(destination_table.num_rows))

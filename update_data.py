@@ -3,6 +3,9 @@ from datetime import datetime
 import pandas as pd
 from google.cloud import storage
 
+PATH_KEY = 'vnstock-381809-22dc568a0a39.json'
+BUCKET_NAME = 'vnstock-data'
+
 tiker = listing_companies()['ticker'].tolist()
 
 today = datetime.today().strftime('%Y-%m-%d')
@@ -26,8 +29,8 @@ if (data.empty==False):
 # 23/03/2023
 
 try:
-    storage_client = storage.Client.from_service_account_json('vnstock-381809-22dc568a0a39.json')
-    bucket = storage_client.get_bucket('vnstock-data')
+    storage_client = storage.Client.from_service_account_json(PATH_KEY)
+    bucket = storage_client.get_bucket(BUCKET_NAME)
     bucket.blob('data-{}.csv'.format(last_xd(1))).upload_from_filename('data-{}.csv'.format(last_xd(1)))
     print('Added new data!')
 except:
