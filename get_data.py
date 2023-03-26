@@ -16,5 +16,4 @@ for item in tiker:
     item_data = item_data.set_index('Open')
     data = pd.concat([data, item_data])
 
-data.to_csv('data.csv')
-print(data)
+data.to_csv('data.csv', header=False)
