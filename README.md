@@ -11,21 +11,21 @@
 
 ## How to use
 
-Step 1 : Clone my project
+**Step 1 : Clone my project**
 
 `git clone https://github.com/thangnh1/Vnstock-Data-GCP`
 
-Step 2 : Open in editor tool, run command in terminal
+**Step 2 : Open in editor tool, run command in terminal**
 
 `pip install -r requirements.txt`
 
-Step 3 : Run file `get_data.py`
+**Step 3 : Run file `get_data.py`**
 
 `python get_data.py`
 
 After running file `get_data.py`, file `data.csv` contains all stock data from past to present time
 
-Step 4 : Load data to GCS and Bigquery
+**Step 4 : Load data to GCS and Bigquery**
 
 At Google Console, create new project, activate APIs Service : Bigquery, Cloud Storage, Compute Engine, Cloud Function.
 <p align="center">
@@ -85,11 +85,101 @@ Choose `JSON Type` and Create, a JSON file containing your credentials will be d
 Back to Editor, open `push_data.py`, edit variable value, then run command `python push_data.py` <br />
 Check result in GCS and Bigquery in Google Console.
 
-Step 5 : Create trigger with Cloud Function
+**Step 5 : Create trigger with Cloud Function**
 
-Step 6 : Create VM with Compute Engine
+Open Cloud Function, choose `CREATE FUNCTION`
 
-Step 7 : Update data daily
+<br />
+<p align="center">
+  <img src="demo/demo_cf.png"><br />
+  <i>Create function</i>
+</p>
+
+Config function to run every time new data is added to GCS
+
+<br />
+<p align="center">
+  <img src="demo/demo_cf_1.png"><br />
+  <i>Config function</i>
+</p>
+
+Config memory, timeout and choose service account 
+
+<br />
+<p align="center">
+  <img src="demo/demo_cf_2.png"><br />
+  <i>Config function</i>
+</p>
+
+Switch Runtime to `Python 3.x` 
+
+Entry point and Function need to have the same name
+
+`main.py` is the file containing the function code, copy the contents of the file `cloud_function.py` from local and paste it into `main.py`
+
+Add `goole.cloud` and `google.cloud.bigquery` to `requirements.txt`
+
+<br />
+<p align="center">
+  <img src="demo/demo_cf_3.png"><br />
+</p>
+
+**Step 6 : Create VM with Compute Engine**
+
+Open Compute Engine, at VM instance choose `CREATE INSTANCE`
+
+<br />
+<p align="center">
+  <img src="demo/demo_vm.png"><br /><br />
+  <img src="demo/demo_vm_1.png"><br />
+</p>
+
+Config arbitrarily according to use needs, then click CREATE
+
+<br />
+<p align="center">
+  <img src="demo/demo_vm_2.png"><br /><br />
+  <img src="demo/demo_vm_3.png"><br />
+</p>
+
+
+After the virtual machine is created, select SSH at the Connect tab to open SSH-in-browser
+
+<br />
+<p align="center">
+  <img src="demo/demo_vm_4.png"><br /><br />
+  <img src="demo/demo_vm_5.png"><br />
+</p>
+
+**Step 7 : Update data daily**
+
+In SSH-in-browser, run command 
+
+`sudo timedatectl set-timezone Asia/Ho_Chi_Minh`
+
+Copy file `update_data.py` and `requirements.txt` from local to VM with `scp` or `Upload File` in SSH-in-browser
+
+Setup pip3 : `sudo apt upgrade & sudo apt-get install python-pip3`
+
+Install libs : `pip3 install -r requirements.txt`
+
+Create script : `touch auto_run.sh & nano auto_run.sh`
+add the following line to the opened file `python3 update_data.py`. Exit & save with `Ctrl + X` -> `y` -> `Enter`
+
+Config Cronjob : 
+`crontab -e`
+add the following line to the opened file `0 16 * * * bash /home/<user_name>/auto_run.sh`. Exit & save with `Ctrl + X` -> `y` -> `Enter`
 
 ## Demo
 
+<br />
+<p align="center">
+  <img src="demo/demo_bq.png"><br />
+  <i>Bigquery</i>
+</p>
+
+<br />
+<p align="center">
+  <img src="demo/demo_cf_rs.png"><br />
+  <i>Log active trigger</i>
+</p>
