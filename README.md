@@ -157,15 +157,15 @@ In SSH-in-browser, run command
 
 `sudo timedatectl set-timezone Asia/Ho_Chi_Minh`
 
-Copy file `update_data.py` and `requirements.txt` from local to VM with `scp` or `Upload File` in SSH-in-browser
+Copy file private key service account, `update_data.py` and `requirements.txt` from local to VM with `scp` or `Upload File` in SSH-in-browser
 
 Setup pip3 : `sudo apt upgrade & sudo apt-get install python-pip3`
 
 Install libs : `pip3 install -r requirements.txt`
 
-*If the library installation has a version error, open the file `requirement.txt` and delete the version number of the library*
+*If the library installation has a version error, open the file `requirements.txt` and delete the version number of the library*
 
-*If the installation fails with the `vnstock` library, open the file `requirement.txt` and remove the line vnstock, then upload the file `update_data_stock.py` to use instead of the file `update_data.py`*
+*If the installation fails with the `vnstock` library, open the file `requirements.txt` and remove the line vnstock, then upload the file `update_data_vnstock.py` to use instead of the file `update_data.py`*
 
 Create script : `touch auto_run.sh & nano auto_run.sh`
 add the following line to the opened file `python3 update_data.py`. Exit & save with `Ctrl + X` -> `y` -> `Enter`
